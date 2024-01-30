@@ -3,6 +3,7 @@ package com.globant.javacodecamp.players;
 import com.globant.javacodecamp.players.model.Invoice;
 import com.globant.javacodecamp.players.model.Performance;
 import com.globant.javacodecamp.players.model.Play;
+import com.globant.javacodecamp.players.printers.SimpleTextStatementPrinter;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,8 +21,11 @@ class StatementPrinterTest {
     Invoice invoice = new Invoice("BigCo", List.of(
             new Performance("othello", 40)));
 
-    StatementPrinter statementPrinter = new StatementPrinter();
-    var actualStatement = statementPrinter.print(invoice, plays);
+    var statementGenerator = new StatementGenerator();
+    var statement = statementGenerator.generateStatement(invoice, plays);
+
+    SimpleTextStatementPrinter statementPrinter = new SimpleTextStatementPrinter();
+    var actualStatement = statementPrinter.print(statement);
 
     var expectedStatement = """
             Statement for BigCo
@@ -43,8 +47,11 @@ class StatementPrinterTest {
             new Performance("as-like", 35),
             new Performance("othello", 40)));
 
-    StatementPrinter statementPrinter = new StatementPrinter();
-    var actualStatement = statementPrinter.print(invoice, plays);
+    var statementGenerator = new StatementGenerator();
+    var statement = statementGenerator.generateStatement(invoice, plays);
+
+    SimpleTextStatementPrinter statementPrinter = new SimpleTextStatementPrinter();
+    var actualStatement = statementPrinter.print(statement);
 
     var expectedStatement = """
             Statement for BigCo
